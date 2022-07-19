@@ -24,8 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/customers/<int:pk>', views.customers_detail),
     path(r'api/customers', views.customers_list),
-    path('<path:path>', views.spa),
-    path('', views.spa),
+    # path('<path:path>', views.spa),
+    # path('', views.spa),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = views.page_not_found_view
