@@ -21,6 +21,7 @@ env = environ.Env(
     DB_PASSWORD=(str, 'postgresql'),
     DB_HOST=(str, '127.0.0.1'),
     DB_PORT=(str, '5432'),
+    DEBUG=(bool, False),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +36,7 @@ env.read_env(Path(BASE_DIR) / '.env')
 SECRET_KEY = 'django-insecure-(#zvd3y&r9996ssum&v=js_2h5c($k1f(3%_d_i)mng*@!h6ab'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -71,7 +72,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'frontend',
             BASE_DIR / 'djangoreactproject/templates'
         ],
         'APP_DIRS': True,
@@ -138,13 +138,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'build/'
-BUILD_PATH = BASE_DIR / 'frontend/build'
+STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    BUILD_PATH,
-    BUILD_PATH / 'static',
-]
+STATICFILES_DIRS = []
 
 STATIC_ROOT = Path(BASE_DIR).resolve().joinpath('staticfiles')
 
@@ -157,14 +153,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ORIGIN_WHITELIST = (
+    'http://localhost:8080',
     'http://localhost:8000',
     'http://localhost:3000',
-    'http://localhost:8080',
 )
 
 if env('CORS_URL_WHITELIST') is not None:
     CORS_ORIGIN_WHITELIST = CORS_ORIGIN_WHITELIST + (env('CORS_URL_WHITELIST'),)
-
-ALLOWED_HOSTS = ['*']
 
 django_heroku.settings(locals(), staticfiles=False)

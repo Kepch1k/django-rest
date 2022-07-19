@@ -70,9 +70,5 @@ def customers_detail(request, pk):
         customer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-def spa(request, path = None):
-    return render(request, 'build/index.html')
-
-def page_not_found_view(request, path = None):
+def page_not_found_view(request, exception):
     return render(request, '404.html', status=404)
