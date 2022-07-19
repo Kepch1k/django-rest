@@ -9,10 +9,19 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import environ
-from pathlib import Path
 
-env = environ.Env()
+from pathlib import Path
+import environ
+import django_heroku
+
+env = environ.Env(
+    DB_DRIVER=(str, 'postgresql'),
+    DB_NAME=(str, 'localDB'),
+    DB_USER=(str, 'postgresql'),
+    DB_PASSWORD=(str, 'postgresql'),
+    DB_HOST=(str, '127.0.0.1'),
+    DB_PORT=(str, '5432'),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,7 +94,7 @@ WSGI_APPLICATION = 'djangoreactproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.' + env('DB_DRIVER'),
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
@@ -134,6 +143,7 @@ BUILD_PATH = BASE_DIR / 'frontend/build'
 
 STATICFILES_DIRS = [
     BUILD_PATH,
+    BUILD_PATH / 'static',
 ]
 
 # Default primary key field type
@@ -151,3 +161,5 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 ALLOWED_HOSTS = ['*']
+
+django_heroku.settings(locals(), staticfiles=False)
