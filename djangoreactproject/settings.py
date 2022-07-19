@@ -162,6 +162,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
 )
 
+if env('CORS_URL_WHITELIST') is not None:
+    CORS_ORIGIN_WHITELIST = CORS_ORIGIN_WHITELIST + (env('CORS_URL_WHITELIST'),)
+
 ALLOWED_HOSTS = ['*']
 
 django_heroku.settings(locals(), staticfiles=False)
