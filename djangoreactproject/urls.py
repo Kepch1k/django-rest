@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from customers import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('build', views.page_not_found_view),
@@ -24,6 +26,6 @@ urlpatterns = [
     path(r'api/customers', views.customers_list),
     path('<path:path>', views.spa),
     path('', views.spa),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler404 = views.page_not_found_view
