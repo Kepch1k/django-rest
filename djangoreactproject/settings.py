@@ -143,7 +143,7 @@ STATIC_ROOT = Path(BASE_DIR).resolve().joinpath('staticfiles')
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (
-    STATIC_ROOT,
+    BASE_DIR,
 )
 
 
