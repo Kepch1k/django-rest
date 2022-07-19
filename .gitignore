@@ -2,5 +2,6 @@ venv
 *.pyc
 staticfiles
 .env
+.env.prod
 db.sqlite3
 getting-started/*
