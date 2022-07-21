@@ -5,4 +5,12 @@ staticfiles
 .env.development
 .env.production
 db.sqlite3
-getting-started/*
+
+# PhpStorm
+.idea
+
+# VSCode
+.vscode
+
+# Mac OS
+.DS_Store
