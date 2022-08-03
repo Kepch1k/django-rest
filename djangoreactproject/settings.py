@@ -106,22 +106,9 @@ DATABASES = {
     },
 }
 
-if env('DATABASE_URL') is not None:
+if "DATABASE_URL" in env:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600, ssl_require=True)
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.' + env('DB_DRIVER'),
-            'NAME': env('DB_NAME'),
-            'USER': env('DB_USER'),
-            'PASSWORD': env('DB_PASSWORD'),
-            'HOST': env('DB_HOST'),
-            'PORT': env('DB_PORT'),
-            'CONN_MAX_AGE': env('DB_CONN_MAX_AGE'),
-        },
-    }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -182,7 +169,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
-if env('CORS_URL_WHITELIST') is not None:
+if "CORS_URL_WHITELIST" in env:
     CORS_ORIGIN_WHITELIST = CORS_ORIGIN_WHITELIST + \
         (env('CORS_URL_WHITELIST'),)
 
